@@ -1,0 +1,26 @@
+.movies__container {
+    /* height: calc(100vh - 80px); */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    background: #FAFAFA;
+}
+
+.movies__subcontainer {
+    width: 100%;
+}
+
+.movies__expander-button {
+        margin-top: 60px;
+        width: calc(100vw * 0.25);
+        font-family: 'Inter';
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 15px;      
+        background: #FAFAFA;
+        border: solid 1px #E8E8E8;
+        outline: none;
+        cursor: pointer;
+}
