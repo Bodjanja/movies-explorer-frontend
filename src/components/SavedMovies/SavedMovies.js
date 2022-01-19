@@ -10,10 +10,12 @@ export default function SavedMovies(props) {
     return(
         <>
             <Header menuOpener={props.menuOpener} menuCloser={props.menuCloser} />
-            <SearchForm />
-            {props.likedMovies.map((movie, i) => (
-                <MoviesCardList key={i} component={MoviesCardSaved} movie={movie} />
-            ))}
+            <main>
+                <SearchForm />
+                {props.likedMovies.map((movie, i) => (
+                    <MoviesCardList key={i} component={MoviesCardSaved} movie={movie} />
+                ))}
+            </main>
             <Footer />
             <PopupHeader menuOpen={props.menuOpen} menuCloser={props.menuCloser} />
         </>

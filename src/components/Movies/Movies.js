@@ -11,7 +11,7 @@ export default function Movies(props){
     return(
         <>
             <Header menuOpener={props.menuOpener} />
-            <div className="movies__container">
+            <main className="movies__container">
                 <div className="movies__subcontainer">
                     <SearchForm />
                     {props.allMovies.map((movie, i) => (
@@ -19,7 +19,7 @@ export default function Movies(props){
                     ))}
                 </div>
                 <button className="movies__expander-button">Ещё</button>
-            </div>
+            </main>
             <Footer />
             <PopupHeader menuOpen={props.menuOpen} menuCloser={props.menuCloser} />
         </>

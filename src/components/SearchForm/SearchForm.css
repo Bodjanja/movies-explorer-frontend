@@ -44,7 +44,7 @@
     .search__form {
         display: grid;
         grid-template-columns: 1fr 44px;
-        background: white;
+        background-color: #FAFAFA;
         border-radius: 0;
     }
 }
@@ -152,6 +152,8 @@ input:checked[type="checkbox"]::before {
 
 .search__radio-container {
     padding-top: 28px;
+    grid-column-start: 1;
+    grid-column-end: 3;
     display: flex;
     flex-direction: row;
     align-items: center;
