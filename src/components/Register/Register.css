@@ -1,0 +1,148 @@
+.register {
+    height: 100vh;
+    display: flex;
+    background: #FAFAFA;
+}
+
+.register__container {
+    width: 396px;
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+@media(max-width: 767px){
+    .register__container {
+        width: calc(100vw - 60px);
+        align-items: center;
+    }
+}
+
+.register__logo {
+    width: 38px;
+    height: 38px;
+}
+
+.register__title {
+    margin: 40px 0 0 0;
+    margin-bottom: 40px;
+    padding: 0;
+    text-align: left;
+    font-family: 'Inter';
+    color: black;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+}
+
+@media(max-width: 767px){
+    .register__title {
+        margin-top: 50px;
+        margin-bottom: 80px;
+    }
+}
+
+.register__labels {
+    margin-bottom: 10px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    align-self: flex-start;
+    color: #A0A0A0;
+}
+
+@media(max-width: 767px){
+    .register__labels {
+        font-size: 10px;
+        line-height: 12px;
+    }
+}
+
+.register__inputs {
+    width: 100%;
+    padding: 0 0 10px 0;
+    margin-bottom: 20px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #E8E8E8;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    color: black;
+    background: #FAFAFA;
+}
+
+.register__inputs_error {
+    color: #EE3465;
+}
+
+.register__error {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 12px;
+    color: #EE3465;
+    margin-bottom: 20px;
+}
+
+.register__button {
+    width: 100%;
+    margin-bottom: 16px;
+    padding-top: 13px;
+    padding-bottom: 15px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #FFFFFF;
+    background-color: #3456F3;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.register__button:disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+}
+
+.register__subcontainer {
+    width: 100%;
+}
+
+@media(min-height: 750px){
+    .register__subcontainer {
+        margin-top: calc(100vh * 0.26923);
+    }
+}
+
+.register__paragraph {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    color: #A0A0A0;
+    align-self: center;
+}
+
+@media(max-width: 767px){
+    .register__paragraph {
+        font-size: 12px;
+        line-height: 15px;
+    }
+}
+
+.register__link {
+    text-decoration: none;
+    color: #3456F3;
+}
