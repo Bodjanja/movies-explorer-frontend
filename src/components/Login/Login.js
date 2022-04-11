@@ -4,7 +4,7 @@ import RegisterLogo from '../../images/logoHeader.svg';
 import '../Register/Register';
 import mainApi from '../../utils/MainApi';
 
-export default function Login(props){
+export default function Login({onLoginSuccess}){
 
     const [validEmail, setValidEmail] =React.useState(false);
     const [validPassword, setValidpassword] =React.useState(false);
@@ -33,8 +33,7 @@ export default function Login(props){
             setSigninStatus(true);
             setSigninErrorText('');
             localStorage.setItem('token', res.token);
-            props.setLoggedIn(true);
-            history.push('/movies');
+            onLoginSuccess()
         })
         .catch((err) => {
             if(err === 'Ошибка: 401'){

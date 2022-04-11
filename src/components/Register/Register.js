@@ -5,7 +5,7 @@ import './Register.css';
 import mainApi from '../../utils/MainApi';
 import { useFormWithValidation } from '../../utils/validation';
 
-export default function Register(props){
+export default function Register({onRegisterSuccess}){
 
     const history = useHistory();
 
@@ -57,7 +57,7 @@ export default function Register(props){
         .then((res) => {
             //   console.log(res.token)
             localStorage.setItem('token', res.token)
-            props.setLoggedIn(true)
+            onRegisterSuccess()
             history.push("/movies")
           })
         .catch((err) => {

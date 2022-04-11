@@ -14,7 +14,6 @@ export default function Main(props) {
             <AboutProject />
             <Techs />
             <AboutMe />
-            <Footer />
         </div>
     )
 }

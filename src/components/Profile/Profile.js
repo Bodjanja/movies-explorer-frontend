@@ -1,8 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
-import Header from "../Header/Header";
 import "./Profile.css";
-import PopupHeader from "../PopupHeader/PopupHeader";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import mainApi from "../../utils/MainApi";
 
@@ -16,7 +13,6 @@ export default function Profile(props) {
     const [confirmationStatus, setConfirmationStatus] = React.useState(false)
 
     const currentUser = React.useContext(CurrentUserContext)
-    const history = useHistory(); 
 
         React.useEffect(() => {
             setName(currentUser.name);
@@ -34,10 +30,7 @@ export default function Profile(props) {
         };   
     
     function handleSignOut() {
-        localStorage.removeItem('token');
-        history.push('/');
-        props.setLoggedIn(false);
-        props.setSavedMovies([]);
+        props.onSignOut();
     }
 
     function handleDataUpdate(e) {
@@ -45,14 +38,13 @@ export default function Profile(props) {
         mainApi.updateUserData(name, email)
         .then((res) => {
             // console.log(res.data)
-            props.setCurrentUser(res.data)
+            props.onUpdateUser(res.data)
             setConfirmationStatus(true)
         })
     }
 
     return(
         <div className="profile">
-            <Header menuOpener={props.menuOpener} />
             <form className="profile__container" onSubmit={handleDataUpdate}>
                 <div className="profile__section">
                     <h1 className="profile__title">Привет, {props.currentUser.name}!</h1>
@@ -72,7 +64,6 @@ export default function Profile(props) {
                     <button className="profile__button profile__logout-button" onClick={handleSignOut}>Выйти из аккаунта</button>
                 </div>
             </form>
-            <PopupHeader menuOpen={props.menuOpen} menuCloser={props.menuCloser} />
         </div>
     )
 }
