@@ -181,9 +181,9 @@ function handleUpdateUser(user) {
   setCurrentUser(user)
 }
 
-  function filterMovies() {
-    setShortMoviesFiltered(!shortMoviesFiltered)
-  }
+function filterMovies() {
+  setShortMoviesFiltered(!shortMoviesFiltered)
+}
 console.log(shortMoviesFiltered)
   function menuOpener() {
     setMenuOpen(true)
@@ -226,8 +226,10 @@ if(isLoading) {
 
         <ProtectedRoute path="/saved-movies" component={SavedMovies}
         savedMovies={savedMovies}
+        filterMovies={filterMovies}
         loggedIn={loggedIn}
-        onSaveMovie={handleSaveMovie} />
+        onSaveMovie={handleSaveMovie}
+        shortMoviesFiltered={shortMoviesFiltered} />
 
         <ProtectedRoute path="/profile" component={Profile}
         loggedIn={loggedIn}

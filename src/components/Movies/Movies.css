@@ -13,14 +13,14 @@
 }
 
 .movies__expander-button {
-        margin-top: 60px;
-        width: calc(100vw * 0.25);
-        font-family: 'Inter';
-        font-weight: 500;
-        font-size: 12px;
-        line-height: 15px;      
-        background: #FAFAFA;
-        border: solid 1px #E8E8E8;
-        outline: none;
-        cursor: pointer;
+    margin-top: 60px;
+    width: calc(100vw * 0.25);
+    font-family: 'Inter';
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    background: #FAFAFA;
+    border: solid 1px #E8E8E8;
+    outline: none;
+    cursor: pointer;
 }

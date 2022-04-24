@@ -10,7 +10,7 @@ export default function Profile(props) {
     const [validEmail, setValidEmail] =React.useState(false);
     const [email, setEmail] =React.useState('');
 
-    const [confirmationStatus, setConfirmationStatus] = React.useState(false)
+    const [confirmationStatus, setConfirmationStatus] = React.useState('')
 
     const currentUser = React.useContext(CurrentUserContext)
 
@@ -39,7 +39,10 @@ export default function Profile(props) {
         .then((res) => {
             // console.log(res.data)
             props.onUpdateUser(res.data)
-            setConfirmationStatus(true)
+            setConfirmationStatus('Данные изменены')
+        })
+        .catch(() => {
+            setConfirmationStatus(`Некорректные данные`)
         })
     }
 
@@ -59,7 +62,7 @@ export default function Profile(props) {
                     </div>
                 </div>
                 <div style={{display: 'flex', flexDirection: 'column'}}>
-                    <div style={{paddingBottom: 30, color: "green"}}>{confirmationStatus ? 'Данные изменены' : ''}</div>
+                    <div className={`profile__confirmation-field ${confirmationStatus === 'Некорректные данные' ? 'profile__confirmation-field_incorrect' : ''}`} >{confirmationStatus}</div>
                     <button className="profile__button profile__edit-button" type="submit">Редактировать</button>
                     <button className="profile__button profile__logout-button" onClick={handleSignOut}>Выйти из аккаунта</button>
                 </div>

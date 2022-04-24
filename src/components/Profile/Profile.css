@@ -115,3 +115,12 @@
     justify-self: flex-end;
     margin-bottom: 0;
 }
+
+.profile__confirmation-field {
+    padding-bottom: 30px;
+    color: green;
+}
+
+.profile__confirmation-field_incorrect {
+    color: red;
+}
