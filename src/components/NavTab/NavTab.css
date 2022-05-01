@@ -1,8 +1,18 @@
 .navtab {
+    padding: 21px 70px 0px;
     display: grid;
     grid-template-columns: 1fr max-content max-content;
     grid-column-start: 1;
     grid-column-end: 4;
+    border-color: #DDDEE3;
+}
+
+.navtab_unlogged {
+    background-color: #DDDEE3;
+}
+
+.navtab_hidden {
+    display: none;
 }
 
 .navtab__container {

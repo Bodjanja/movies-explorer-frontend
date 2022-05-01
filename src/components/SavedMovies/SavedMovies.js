@@ -1,10 +1,7 @@
 import React from "react";
-import Header from "../Header/Header";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MoviesCardSaved from "../MoviesCardSaved/MoviesCardSaved";
-import Footer from "../Footer/Footer";
-import PopupHeader from "../PopupHeader/PopupHeader";
 
 export default function SavedMovies(props) {
 
@@ -20,17 +17,17 @@ export default function SavedMovies(props) {
         if(!searchRequest && props.shortMoviesFiltered === false) {
             setMoviesToRender(props.savedMovies)
             props.savedMovies.length === 0 ? setResultsNotFound(true) : setResultsNotFound(false);
-            return
+            return;
         }else if(!searchRequest && props.shortMoviesFiltered === true) {
             const shortMovies = props.savedMovies.filter(function(i) {
                   if(i.duration<41){
-                    return i
+                    return i;
                   }
                 }
                 )
             shortMovies.length === 0 ? setResultsNotFound(true) : setResultsNotFound(false);
             setMoviesToRender(shortMovies)
-            return
+            return;
         };
         if(searchRequest && props.shortMoviesFiltered === false){
             const filteredMovies = props.savedMovies.filter(
@@ -52,7 +49,7 @@ export default function SavedMovies(props) {
             shortMovies.length === 0 ? setResultsNotFound(true) : setResultsNotFound(false);
             setMoviesToRender(shortMovies);
         }
-    }, [searchRequest, props.shortMoviesFiltered])
+    }, [searchRequest, props.shortMoviesFiltered, props.savedMovies])
     
     return(
             <main>

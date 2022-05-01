@@ -5,6 +5,7 @@
     display: grid;
     grid-template-columns: 1fr max-content;
     row-gap: 75px;
+    border-color: #DDDEE3;
 }
 
 @media(max-width: 1105px) {

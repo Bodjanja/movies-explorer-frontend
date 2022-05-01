@@ -1,6 +1,6 @@
 import React from "react";
 import "./Profile.css";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { CurrentUserContext } from "../../contexts/Contexts";
 import mainApi from "../../utils/MainApi";
 
 export default function Profile(props) {
@@ -37,7 +37,6 @@ export default function Profile(props) {
         e.preventDefault();
         mainApi.updateUserData(name, email)
         .then((res) => {
-            // console.log(res.data)
             props.onUpdateUser(res.data)
             setConfirmationStatus('Данные изменены')
         })

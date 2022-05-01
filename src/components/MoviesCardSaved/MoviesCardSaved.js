@@ -11,8 +11,16 @@ export default function MoviesCardSaved(props) {
         props.onLike(props.movie, false);
     }
 
+    function handleCardClick(e) {
+        if(e.target.className.includes('movie__like-button')){
+            return;
+        } else{
+            window.location.href = props.movie.trailer;
+        }
+    }
+
     return(
-        <li className='movie__container'>
+        <li className='movie__container'  onClick={handleCardClick}>
             <h2 className='movie__title'>{props.movie.nameRU}</h2>
             <p className='movie__duration'>{getTimeFromMins(props.movie.duration)}</p>
             <button className='movie__like-button saved-movie__remove-button' onClick={handleCardRemove}></button>

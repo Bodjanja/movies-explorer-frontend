@@ -16,7 +16,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import moviesApi from '../../utils/MoviesApi';
 
-import { CurrentUserContext } from "../../contexts/CurrentUserContext" 
+import { CurrentUserContext, ScreenWidthContext } from "../../contexts/Contexts" 
 
 import mainApi from '../../utils/MainApi';
 
@@ -32,6 +32,7 @@ function App() {
 
   const [currentUser, setCurrentUser] = React.useState(null);
   const loggedIn = !!currentUser;
+  const [innerWidth, setInnerWidth] = React.useState(window.innerWidth);
 
 
   const history = useHistory();
@@ -41,26 +42,17 @@ function App() {
     tokenCheck();
   }, [])
 
-  // React.useEffect(() => {
-  //   if(loggedIn){
-  //   mainApi.getUserData()
-  //     .then((user) => {
-  //       // console.log(user)
-  //       setCurrentUser(user.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  //     }}, [loggedIn]);
-//sojedenitj, header dlja Promo
+  React.useEffect(() => {
+    window.addEventListener('resize', () => {
+        setInnerWidth(window.innerWidth);
+    })
+}, [])
 
   React.useEffect(() => {
     if(loggedIn === true) {
       loadLikedMovies();
     }
   }, [loggedIn])
-
-// console.log(currentUser)
 
   React.useEffect(() => {
 
@@ -80,11 +72,8 @@ function App() {
   function loadLikedMovies() {
   mainApi.getMovies()
       .then((movies) => {
-        // console.log(movies.data)
-        // console.log(currentUser._id)
         const ownSavedMovies = [];
         movies.data.forEach((movie) => {
-          // console.log(movie)
           if(movie.owner === currentUser._id){
             ownSavedMovies.push(movie)
           }
@@ -95,16 +84,6 @@ function App() {
         console.log(err);
       });
 }
-
-  // console.log(allMovies)
-
-  // const shortMovies = allMovies.filter(function(i) {
-  //   if(i.duration<41){
-  //     return i
-  //   }
-  // }
-  // )
-  // console.log(shortMovies)
 
   function tokenCheck(){
 
@@ -159,8 +138,6 @@ function handleSaveMovie(movie, toSave) {
        });
       }else{
         const movieToDeleteFromSaved = savedMovies.find(i => i.movieId === movie.id.toString())//Ищем по мануальному ID в массиве SavedMovies фильм, по которому нажали, чтобы извлечь его серверное ID и отправить запрос на удаление
-        // console.log(movieToDeleteFromSaved._id)
-        console.log(movieToDeleteFromSaved)
         mainApi.deleteSavedMovie(movieToDeleteFromSaved._id)
         .then(() => {
           const newSavedMovies = savedMovies.filter(
@@ -171,9 +148,6 @@ function handleSaveMovie(movie, toSave) {
         .catch((err) => {
             console.log(err)
         })
-        // setCardLikeStatus(false)
-        // console.log(props.savedMovies)
-        // props.renderCards();
       }
 }
 
@@ -184,7 +158,6 @@ function handleUpdateUser(user) {
 function filterMovies() {
   setShortMoviesFiltered(!shortMoviesFiltered)
 }
-console.log(shortMoviesFiltered)
   function menuOpener() {
     setMenuOpen(true)
 }
@@ -192,14 +165,14 @@ console.log(shortMoviesFiltered)
 function menuCloser() {
     setMenuOpen(false)
 }
-// console.log(loggedIn)
-// console.log(savedMovies)
+
 
 if(isLoading) {
   return 'Loading'
 }
 
   return (
+    <ScreenWidthContext.Provider value={innerWidth}>
     <CurrentUserContext.Provider value={currentUser}>
     <div className="App">
       {loggedIn ? <Header menuOpener={menuOpener} /> : <NavTab />}
@@ -243,6 +216,7 @@ if(isLoading) {
         menuCloser={menuCloser} />
     </div>
     </CurrentUserContext.Provider>
+    </ScreenWidthContext.Provider>
   );
 }
 

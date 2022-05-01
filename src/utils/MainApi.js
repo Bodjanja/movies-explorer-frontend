@@ -89,7 +89,7 @@ class MainApi {
                 'Access-Control-Allow-Origin': '*'
               },
               body: JSON.stringify({
-                country: movie.country,
+                country: movie.country || 'unknown',
                 director: movie.director,
                 duration: movie.duration,
                 year: movie.year,
@@ -99,7 +99,7 @@ class MainApi {
                 thumbnail: `https://api.nomoreparties.co${movie.image.url}`,
                 movieId: movie.id.toString(),
                 nameRU: movie.nameRU,
-                nameEN: movie.nameEN
+                nameEN: movie.nameEN || 'unknown'
             })
           })
           .then((response) => this._checkResponse(response))
