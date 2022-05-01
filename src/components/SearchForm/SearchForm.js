@@ -29,9 +29,6 @@ export default function SearchForm(props) {
             setValueSaved(v)
         }
     }
-    // React.useEffect(() => {
-    //     value.length > 0 ? setValidRequest(true) : setValidRequest(false);
-    // },[value])
     
     function handleSubmit(e) {
         e.preventDefault();
