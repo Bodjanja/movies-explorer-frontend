@@ -19,7 +19,6 @@ export default function SearchForm(props) {
             props.onSearchRequestForSavedMovies(valueSaved);
         }
     }, [])
-    console.log(validRequest)
 
     function handleChange(e) {
         const v = e.target.value;
