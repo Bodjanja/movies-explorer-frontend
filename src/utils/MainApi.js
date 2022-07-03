@@ -14,9 +14,9 @@ class MainApi {
     register(userName, userEmail, userPassword) {
         return fetch(`${this._baseUrl}/signup`, {
             method: "POST",
+            mode: 'cors',
             headers: {
                 "Content-Type": "application/json",
-                'Access-Control-Allow-Origin': '*'
             },
             body: JSON.stringify({
                 name: userName,
@@ -30,6 +30,7 @@ class MainApi {
     login = (password, email) => {
         return fetch(`${this._baseUrl}/signin`, {
                 method: 'POST',
+                mode: 'cors',
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -44,6 +45,7 @@ class MainApi {
     checkToken = (token) => {
         return fetch(`${this._baseUrl}/users/me`, {
                 method: 'GET',
+                mode: 'cors',
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
@@ -58,7 +60,6 @@ class MainApi {
             headers: {
               authorization: `Bearer ${localStorage.getItem('token')}`,
               'Content-Type': 'application/json',
-              'Access-Control-Allow-Origin': '*'
             }
           })
           .then((response) => this._checkResponse(response))
@@ -70,7 +71,6 @@ class MainApi {
               headers: {
                 authorization: `Bearer ${localStorage.getItem('token')}`,
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
               },
               body: JSON.stringify({
                 name: userName,
@@ -86,7 +86,6 @@ class MainApi {
               headers: {
                 authorization: `Bearer ${localStorage.getItem('token')}`,
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
               },
               body: JSON.stringify({
                 country: movie.country || 'unknown',
