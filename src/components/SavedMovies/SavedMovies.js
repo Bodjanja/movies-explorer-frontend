@@ -14,11 +14,11 @@ export default function SavedMovies(props) {
     }
 
     React.useEffect(() => {
-        if(!searchRequest && props.shortMoviesFiltered === false) {
+        if(!searchRequest && props.shortSavedMoviesFiltered === false) {
             setMoviesToRender(props.savedMovies)
             props.savedMovies.length === 0 ? setResultsNotFound(true) : setResultsNotFound(false);
             return;
-        }else if(!searchRequest && props.shortMoviesFiltered === true) {
+        }else if(!searchRequest && props.shortSavedMoviesFiltered === true) {
             const shortMovies = props.savedMovies.filter(function(i) {
                   if(i.duration<41){
                     return i;
@@ -29,14 +29,14 @@ export default function SavedMovies(props) {
             setMoviesToRender(shortMovies)
             return;
         };
-        if(searchRequest && props.shortMoviesFiltered === false){
+        if(searchRequest && props.shortSavedMoviesFiltered === false){
             const filteredMovies = props.savedMovies.filter(
                 m => m.nameRU.includes(searchRequest)
             );
 
         filteredMovies.length === 0 ? setResultsNotFound(true) : setResultsNotFound(false);
         setMoviesToRender(filteredMovies);
-        }else if(searchRequest && props.shortMoviesFiltered === true){
+        }else if(searchRequest && props.shortSavedMoviesFiltered === true){
             const filteredMovies = props.savedMovies.filter(
                 m => m.nameRU.includes(searchRequest)
             );
@@ -49,7 +49,7 @@ export default function SavedMovies(props) {
             shortMovies.length === 0 ? setResultsNotFound(true) : setResultsNotFound(false);
             setMoviesToRender(shortMovies);
         }
-    }, [searchRequest, props.shortMoviesFiltered, props.savedMovies])
+    }, [searchRequest, props.shortSavedMoviesFiltered, props.savedMovies])
     
     return(
             <main>

@@ -3,7 +3,6 @@ import "./Promo.css";
 import "../Main/Main.css";
 import { Link } from 'react-router-dom';
 import landingLogo from "../../images/landingBodyLogo.svg";
-import NavTab from "../NavTab/NavTab"
 
 export default function Promo() {
     return(

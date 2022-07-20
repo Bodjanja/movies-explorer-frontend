@@ -11,13 +11,22 @@ export default function Profile(props) {
     const [email, setEmail] =React.useState('');
 
     const [confirmationStatus, setConfirmationStatus] = React.useState('')
+    const [buttonState, setButtonState] = React.useState(false)
 
     const currentUser = React.useContext(CurrentUserContext)
-
+    
         React.useEffect(() => {
             setName(currentUser.name);
             setEmail(currentUser.email);
         }, [])
+
+        React.useEffect(() => {
+            if(name !== currentUser.name || email !== currentUser.email){
+                setButtonState(false);
+            }else{
+                setButtonState(true);
+            }
+        },[name, email, currentUser])
 
     const changeName=(e) => {
         setName(e.target.value);
@@ -31,6 +40,9 @@ export default function Profile(props) {
     
     function handleSignOut() {
         props.onSignOut();
+        window.localStorage.clear();
+        props.resetSavedMovies(false);
+        props.resetMovies(false);
     }
 
     function handleDataUpdate(e) {
@@ -62,7 +74,7 @@ export default function Profile(props) {
                 </div>
                 <div style={{display: 'flex', flexDirection: 'column'}}>
                     <div className={`profile__confirmation-field ${confirmationStatus === 'Некорректные данные' ? 'profile__confirmation-field_incorrect' : ''}`} >{confirmationStatus}</div>
-                    <button className="profile__button profile__edit-button" type="submit">Редактировать</button>
+                    <button className="profile__button profile__edit-button" type="submit" disabled={buttonState}>Редактировать</button>
                     <button className="profile__button profile__logout-button" onClick={handleSignOut}>Выйти из аккаунта</button>
                 </div>
             </form>

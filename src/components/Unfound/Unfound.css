@@ -52,6 +52,10 @@
 }
 
 .unfound__link {
+    border: none;
+    width: 100px;
+    align-self: center;
+    background: none;
     font-family: 'Inter';
     font-style: normal;
     font-weight: normal;
@@ -59,6 +63,7 @@
     line-height: 17px;
     text-align: center;
     color: #3456F3;
+    cursor: pointer;
 }
 
 @media(max-width: 767px) {

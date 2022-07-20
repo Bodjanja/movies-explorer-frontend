@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, } from 'react-router-dom';
 import RegisterLogo from '../../images/logoHeader.svg';
 import '../Register/Register';
 import mainApi from '../../utils/MainApi';
@@ -14,20 +14,28 @@ export default function Login({onLoginSuccess}){
     const [signinStatus, setSigninStatus] = React.useState();
     const [signinErrorText, setSigninErrorText] = React.useState('');
 
-    const history = useHistory();
+    function validateEmail(email){
+        var re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;;
+        return re.test(email);
+    }
 
     const changeEmail=(e) => {
         setEmail(e.target.value);
-        if (email.length<1) {setValidEmail(true)} else {setValidEmail(false)}
-        };    
+        if (validateEmail(e.target.value) === true){
+            setValidEmail(true)
+        } else {
+            setValidEmail(false)
+        }
+        };
         
     const changePassword=(e) => {
         setPassword(e.target.value);
-        if (password.length<7) {setValidpassword(true)} else {setValidpassword(false)}
+        if (e.target.value.length > 7) {setValidpassword(true)} else {setValidpassword(false)}
         };
 
     function handleLogin(e) {
         e.preventDefault();
+        if(validEmail && validPassword){
         mainApi.login(password, email)
         .then((res) => {
             setSigninStatus(true);
@@ -43,7 +51,14 @@ export default function Login({onLoginSuccess}){
                 setSigninStatus(false);
                 setSigninErrorText(err);
             }
-        })
+            if(err === 'Ошибка: 400'){
+                setSigninStatus(false);
+                setSigninErrorText('Пользователя не существует');
+            } else{
+                setSigninStatus(false);
+                setSigninErrorText(err);
+            }
+        })}
     }
 
     return(
@@ -53,12 +68,12 @@ export default function Login({onLoginSuccess}){
                 <h1 className='register__title'>Рады видеть!</h1>
 
                 <label htmlFor='email' className='register__labels'>Email</label>
-                <input className={`register__inputs ${email.length<2 ? "register__inputs_error":""}`} value={email || ""} onChange={changeEmail} type="email" required id="email" name="email" />
-                {validEmail ?  <div className="register__error">Что-то пошло не так...</div> :""}
+                <input className={`register__inputs ${email.length > 0 && validEmail === false ? "register__inputs_error":""}`} onChange={changeEmail} value={email || ""} type="email" required id="email" name="email" />
+                {validEmail === false && email.length > 0 ?  <div className="register__error">Введите корректный email</div> :""}
 
                 <label htmlFor='password' className='register__labels'>Пароль</label>
-                <input className={`register__inputs ${password.length<8 ? "register__inputs_error":""}`} value={password || ""} onChange={changePassword} type="password" required id="password" name="password" />
-                {validPassword ?  <div className="register__error">Что-то пошло не так...</div> :""}
+                <input className={`register__inputs ${password.length>0 && password.length<8 ? "register__inputs_error":""}`} value={password || ""} onChange={changePassword} type="password" required id="password" name="password" />
+                {validPassword === false && password.length > 0 ?  <div className="register__error">Минимум 8 символов</div> :""}
                 
                 {signinStatus ? "" : <div className="register__error">{signinErrorText}</div>}
                 <button className='register__button' type='submit'>Войти</button>

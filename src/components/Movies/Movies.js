@@ -5,15 +5,14 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import { ScreenWidthContext } from "../../contexts/Contexts";
 import { useContext } from "react/cjs/react.production.min";
+import { initialCount } from "../../utils/constants";
 
 export default function Movies(props){
-
-    const InitialCount = 7;
 
     const [searchRequest, setSearchRequest] = React.useState(null);
     const [moviesToRender, setMoviesToRender] = React.useState(props.allMovies);
     const [resultsNotFound, setResultsNotFound] = React.useState(false);
-    const [currentRenderCount, setCurrentRenderCount] = React.useState(InitialCount);
+    const [currentRenderCount, setCurrentRenderCount] = React.useState(initialCount);
 
     const toShowMoreButton = currentRenderCount !== moviesToRender.length;
 

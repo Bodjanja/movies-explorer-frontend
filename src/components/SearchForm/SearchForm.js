@@ -5,13 +5,22 @@ import searchIcon from '../../images/searchIcon.svg';
 
 export default function SearchForm(props) {
 
-    const [value, setValue] = React.useState(localStorage.getItem('searchRequest' || ''));
-    const [valueSaved, setValueSaved] = React.useState(localStorage.getItem('searchRequestSaved' || ''));
+    const [value, setValue] = React.useState(localStorage.getItem('searchRequest') ? localStorage.getItem('searchRequest') : '');
+    const [valueSaved, setValueSaved] = React.useState(localStorage.getItem('searchRequestSaved') ? localStorage.getItem('searchRequestSaved') : '');
     const [validRequest, setValidRequest] = React.useState(true);
     const [validRequestSaved, setValidRequestSaved] = React.useState(true);
 
     const location = useLocation();
 //Использхуем location для того, чтобы осуществлять параллельный поиск фильмов и параллельную работу со стейтами, чтобы результаты поиска не смешивались, а разделялись между страницами /movies и /saved-movies
+
+    let State
+
+    if(location.pathname === '/movies'){
+        State = Boolean(localStorage.getItem('radioButton'))
+    }else{
+        State = Boolean(localStorage.getItem('radioButtonSavedMovies'))
+    }
+
     React.useEffect(() => {
         if(location.pathname === '/movies'){
             props.onSearchRequestForMovies(value);
@@ -55,7 +64,7 @@ export default function SearchForm(props) {
                     {!validRequest ? <div style={{color: 'red'}}>Введите запрос</div> : ''}
                     {!validRequestSaved ? <div style={{color: 'red'}}>Введите запрос</div> : ''}
                     <div className="search__radio-container">
-                        <input name='short' type="checkbox" id='shortFilms' onClick={props.filterMovies}></input>
+                        <input name='short' type="checkbox" id='shortFilms' onClick={props.filterMovies} defaultChecked={State} ></input>
                         <label htmlFor='shortFilms' className='search__input-label'>Короткоментажки</label>
                     </div>
                 </form>

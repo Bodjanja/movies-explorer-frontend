@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import { Route, Switch, useHistory, useLocation, Redirect } from 'react-router-dom';
 
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -13,6 +13,7 @@ import Movies from '../Movies/Movies';
 import Main from '../Main/Main';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import Unfound from '../Unfound/Unfound';
 
 import moviesApi from '../../utils/MoviesApi';
 
@@ -26,6 +27,7 @@ function App() {
   const [isLoading, setIsLoading] = React.useState(true);
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [shortMoviesFiltered, setShortMoviesFiltered] = React.useState(false);
+  const [shortSavedMoviesFiltered, setShortSavedMoviesFiltered] = React.useState(false);
 
   const [allMovies, setAllMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
@@ -55,22 +57,24 @@ function App() {
   }, [loggedIn])
 
   React.useEffect(() => {
+    if(loggedIn){
+      const localMovies = localStorage.getItem('allMovies')
+      if(localMovies) {
+        setAllMovies(JSON.parse(localMovies));
+        return;
+      }
 
-    const localMovies = localStorage.getItem('allMovies')
-    if(localMovies) {
-      setAllMovies(JSON.parse(localMovies));
-      return;
-    }
-
-    moviesApi.getInitialMovies()
-    .then((movies) => {
-      setAllMovies(movies);
-      localStorage.setItem('allMovies', JSON.stringify(movies));
-    })
-  }, [])
+      moviesApi.getInitialMovies()
+      .then((movies) => {
+        setAllMovies(movies);
+        localStorage.setItem('allMovies', JSON.stringify(movies));
+      })
+  }
+  }, [loggedIn])
+  console.log(localStorage)
 
   function loadLikedMovies() {
-  mainApi.getMovies()
+    mainApi.getMovies()
       .then((movies) => {
         const ownSavedMovies = [];
         movies.data.forEach((movie) => {
@@ -156,8 +160,23 @@ function handleUpdateUser(user) {
 }
 
 function filterMovies() {
-  setShortMoviesFiltered(!shortMoviesFiltered)
+  if(location.pathname === '/movies'){
+        setShortMoviesFiltered(!shortMoviesFiltered)
+    if(!localStorage.getItem('radioButton')){
+        localStorage.setItem('radioButton', 'clicked');
+    }else if(localStorage.getItem('radioButton') === 'clicked'){
+        localStorage.removeItem('radioButton')
+    }
+}else{
+    setShortSavedMoviesFiltered(!shortSavedMoviesFiltered)
+    if(!localStorage.getItem('radioButtonSavedMovies')){
+        localStorage.setItem('radioButtonSavedMovies', 'clicked');
+    }else if(localStorage.getItem('radioButtonSavedMovies') === 'clicked'){
+        localStorage.removeItem('radioButtonSavedMovies')
+  }
 }
+}
+
   function menuOpener() {
     setMenuOpen(true)
 }
@@ -178,11 +197,15 @@ if(isLoading) {
       {loggedIn ? <Header menuOpener={menuOpener} /> : <NavTab />}
       <Switch>
         <Route path="/sign-up">
+        {loggedIn ? <Redirect to="/movies" /> :
           <Register onRegisterSuccess={handleLoginSuccess} />
+        }
         </Route>
         
         <Route path="/sign-in">
+        {loggedIn ? <Redirect to="/movies" /> :
           <Login onLoginSuccess={handleLoginSuccess} />
+        }
         </Route>
 
         <Route exact path="/">
@@ -202,13 +225,20 @@ if(isLoading) {
         filterMovies={filterMovies}
         loggedIn={loggedIn}
         onSaveMovie={handleSaveMovie}
-        shortMoviesFiltered={shortMoviesFiltered} />
+        shortSavedMoviesFiltered={shortSavedMoviesFiltered} />
 
         <ProtectedRoute path="/profile" component={Profile}
         loggedIn={loggedIn}
         currentUser={currentUser}
         onUpdateUser={handleUpdateUser}
+        resetSavedMovies={setShortSavedMoviesFiltered}
+        resetMovies={setShortMoviesFiltered}
         onSignOut={handleSignOut} />
+
+        <Route path="*">
+          <Unfound />
+        </Route>
+
       </Switch>
       <Footer />
       <PopupHeader
