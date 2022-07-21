@@ -1,0 +1,36 @@
+.header {
+    padding: 18px 70px 18px 70px;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    background: #FAFAFA;
+}
+
+@media(max-width: 1023px){
+    .header {
+        padding: 18px 30px 18px 30px;
+    }
+}
+
+@media(max-width: 767px){
+    .header {
+        padding: 18px 14px;
+    }
+}
+
+.header__menu-burger {
+    display: none;
+}
+
+@media(max-width: 1023px){
+    .header__menu-burger {
+        display: inline-block;
+        width: 44px;
+        height: 44px;
+        border: none;
+        outline: none;
+        background-color: white;
+        background-image: url(../../images/burger.svg);
+        justify-self: flex-end;
+        background-color: #FAFAFA;
+    }
+}

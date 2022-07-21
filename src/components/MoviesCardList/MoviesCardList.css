@@ -1,0 +1,29 @@
+.movies-list {
+    margin: 0 70px;
+    padding: 40px 0 0;
+    display: grid;
+    /* justify-content: start; */
+    row-gap: 38px;
+    box-sizing: border-box;
+    background: #FAFAFA;
+}
+
+.movies-list:first-of-type {
+    padding-top: 80px;
+    border-top: 1px solid #E8E8E8;
+}
+
+@media(max-width: 1023px){
+    .movies-list {
+        margin: 0 30px;
+    }
+}
+
+@media(max-width: 767px){
+    .movies-list {
+        padding-top: 40px;
+        margin-right: 10px;
+        margin-left: 10px;
+        row-gap: 20px;
+    }
+}

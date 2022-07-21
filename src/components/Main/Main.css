@@ -1,0 +1,15 @@
+.main__links {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    text-decoration: none;
+    color: black;
+}
+
+@media(max-width: 767px) {
+    .main__links {
+        font-size: 10px;
+    }
+}

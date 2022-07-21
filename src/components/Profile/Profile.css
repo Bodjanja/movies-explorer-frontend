@@ -1,0 +1,126 @@
+.profile {  
+    background: #FAFAFA;
+}
+
+.profile__container {
+    font-family: 'Inter';
+    font-style: normal;
+    margin: 0 auto;
+    padding-top: calc(100vh * 0.105);
+    padding-bottom: 70px;
+    height: calc(100vh - 80px);
+    width: 410px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+@media(max-width: 1023px){
+    .profile__container {
+        padding-top: calc(100vh * 0.2304);
+        width: 100%;
+        padding-right: 179px;
+        padding-left: 179px;
+        justify-content: start;
+    }
+}
+
+@media(max-width: 767px){
+    .profile__container {
+        padding-top: calc(100vh * 0.08974);
+        padding-right: 30px;
+        padding-left: 30px;
+        padding-bottom: 40px;
+        justify-content: space-between;
+    }
+}
+
+@media(max-width: 1023px){
+    .profile__section {
+        margin-bottom: calc(100vh * 0.2051);
+    }
+}
+
+@media(max-width: 767px){
+    .profile__section {
+        margin-bottom: 0;
+    }
+}
+
+.profile__title {
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+}
+
+.profile__subcontainer {
+    margin-top: 123px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    box-sizing: border-box;
+}
+
+.profile__data {
+    margin: 0;
+    padding: 0;
+    text-align: start;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;
+}
+
+.profile__data_align {
+    text-align: end;
+}
+
+.profile__separator {
+    margin: 16px 0 16px;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    border-top: 1px solid #E8E8E8;
+}
+
+.profile__button {
+    font-size: 13px;
+    line-height: 16px;
+    border: none;
+    outline: none;
+    background-color: white;
+    cursor: pointer;
+    transition: 0.3s linear;
+    background: #FAFAFA;
+}
+
+.profile__edit-button {
+    margin-bottom: 16px;
+    font-weight: normal;
+}
+
+.profile__button:hover {
+    transition: 0.3s linear;
+    opacity: 0.7;
+}
+
+.profile__logout-button {
+    font-weight: 500;
+    color: #FF004D;
+}
+
+.profile__input-error {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    justify-self: flex-end;
+    margin-bottom: 0;
+}
+
+.profile__confirmation-field {
+    padding-bottom: 30px;
+    color: green;
+}
+
+.profile__confirmation-field_incorrect {
+    color: red;
+}
